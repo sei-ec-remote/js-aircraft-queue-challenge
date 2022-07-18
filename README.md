@@ -8,7 +8,7 @@ You have 30 minutes
 2. Change into the new directory.
 3. Create and checkout a new branch, named `response`.
 4. Install dependencies with `npm install`.
-5. Follow the directions given in .
+5. Follow the directions given in [exercise/challenge.js](exercises/challenge.js).
 6. Before the allotted time is up, push to your fork and issue a pull request.
 
 Your pull request description should contain a "fist to five" for comfort and
