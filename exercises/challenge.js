@@ -46,16 +46,62 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+	return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+	this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+	const aircraftQueue = this.aircraftQueue
+
+	// find the first plane in the queue for each combination of type and size
+	const bigPassenger = aircraftQueue.find((aircraft) => {
+		return aircraft.type === 'passenger' && aircraft.size === 'large'
+	})
+	const smallPassenger = aircraftQueue.find(
+		(aircraft) => aircraft.type === 'passenger' && aircraft.size === 'small'
+	)
+	const bigCargo = aircraftQueue.find(
+		(aircraft) => aircraft.type === 'cargo' && aircraft.size === 'large'
+	)
+	const smallCargo = aircraftQueue.find(
+		(aircraft) => aircraft.type === 'cargo' && aircraft.size === 'small'
+	)
+
+	// skip any categories for which we didn't find a plane, save the first of
+	// these options for which we did find a plane as `firstPriority`
+	const firstPriority = bigPassenger || smallPassenger || bigCargo || smallCargo
+
+	// remove the plane selected above from the queue
+	aircraftQueue.splice(aircraftQueue.indexOf(firstPriority), 1)
+
+	// return the plane with highest priority
+	return firstPriority
 }
+
+// ALTERNATE SOLUTION
+
+// ATCQueue.prototype.dequeue = function () {
+//   let index = 0
+//   let ac = this.aircraftQueue[index]
+//
+//   this.aircraftQueue.forEach((qAC, qIndex) => {
+//     const diffSize = qAC.size === 'large' && ac.size !== 'large'
+//     const diffType = qAC.type === 'passenger' && ac.type !== 'passenger'
+//     const sameType = qAC.type === ac.type
+//
+//     if (diffType || (sameType && diffSize)) {
+//       index = qIndex
+//       ac = this.aircraftQueue[index]
+//     }
+//   })
+//
+//   this.aircraftQueue.splice(index, 1)
+//
+//   return ac
+// }
 
 // DO NOT MODIFY
 module.exports = ATCQueue
