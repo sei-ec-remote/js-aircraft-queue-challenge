@@ -28,15 +28,15 @@ The aircraft queue should implement the following interface.
 
 | Method | Parameters | Return | Notes |
 | - | - | - | - |
-| `aircraftCount()` | None | Integer | Count the number of aircraft's in the queue. |
+| `aircraftCount()` | None | Integer | Count the number of aircraft in the queue. |
 | `enqueue()` | Aircraft | None | Add an aircraft to the queue. |
 | `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. |
 
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue.
--   Aircraft's are dequeued according to their priority.
-    -   Passenger aircraft's have higher priority than cargo aircraft's.
-    -   If two aircraft's have the same type but different sizes, then the large
+-   Aircraft are dequeued according to their priority.
+    -   Passenger aircraft have higher priority than cargo aircraft.
+    -   If two aircraft have the same type but different sizes, then the large
         aircraft has a higher priority.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
@@ -50,10 +50,12 @@ const ATCQueue = function () {
 ATCQueue.prototype.aircraftCount = function () {
 // counts the number of aircraft in the queue
 // there is no limit to the size of the queue
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
 // pushes the aircraft to the aircraftQueue array
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
