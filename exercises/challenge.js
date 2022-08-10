@@ -43,6 +43,8 @@ The process that manages the aircraft queue satisfies the following conditions.
 */
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    this.head = 0
+    this.tail = 0
 }
 
 ATCQueue.prototype.aircraftCount = function () {
@@ -50,11 +52,18 @@ ATCQueue.prototype.aircraftCount = function () {
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-    this.aircraftQueue.push(aircraft)
+    this.aircraftQueue[this.tail] = aircraft
+    this.tail++
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+    this.aircraftQueue.map(thisAircraft => {
+        async function removeAircraft() {
+            await thisAircraft.type === 'passenger' ? {
+                
+            }
+        }
+    })
 }
 
 // DO NOT MODIFY
