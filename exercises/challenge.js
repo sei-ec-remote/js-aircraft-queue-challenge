@@ -1,11 +1,11 @@
 /*
 =============== JS Aircraft Queue Challenge ==================
 GOAL: Read each question and write code to complete each task
-      given. Do not change starter code or function names.
-      
+    given. Do not change starter code or function names.
+    
 TEST: To test run the commands `npm run test` in your terminal
-      at the root of this directory.(js-aircraft-queue-challenge)
-      Don't worry about capitalization.
+    at the root of this directory.(js-aircraft-queue-challenge)
+    Don't worry about capitalization.
 */
 
 /*
@@ -43,18 +43,28 @@ The process that manages the aircraft queue satisfies the following conditions.
 */
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    // an array of objects in the following format at minimum
+    // {type: (passenger or cargo), size: (small or large)}
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+// counts the number of aircraft in the queue
+// there is no limit to the size of the queue
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+// pushes the aircraft to the aircraftQueue array
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+    // this sorts the queue based on the following conditions:
+    ////////
+    // if (aircraft.type === cargo), it is lower priority
+    // it (aircraft1.type === aircraft2.type && aircraft1.size === small), it has lower priority
+        // else if (aircraft2.size === small), it has lower priority
+    // if (aircraft1.type === aircraft2.type && aircraft1.size === aircraft2.size), aircraft2 has lower priority
+    ////////
+    // this returns an aircraft name
 }
 
 // DO NOT MODIFY
