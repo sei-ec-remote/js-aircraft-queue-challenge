@@ -34,10 +34,13 @@ The aircraft queue should implement the following interface.
 
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue.
+
 -   Aircraft's are dequeued according to their priority.
+
     -   Passenger aircraft's have higher priority than cargo aircraft's.
-    -   If two aircraft's have the same type but different sizes, then the large
-        aircraft has a higher priority.
+
+    -   If two aircraft's have the same type but different sizes, then the large aircraft has a higher priority.
+    
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
@@ -46,11 +49,11 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
