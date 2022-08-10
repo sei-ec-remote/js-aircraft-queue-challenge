@@ -59,7 +59,11 @@ ATCQueue.prototype.enqueue = function (aircraft) {
 }
 
 ATCQueue.prototype.dequeue = function () {
-    // this sorts the queue based on the following conditions:
+    // this sorts the queue(removes from queue) based on the following conditions:
+    // general remove from queue function
+
+    // this general one should go last in order iirc
+    return this.aircraftQueue.splice(-1,1)
     ////////
     // if (aircraft.type === cargo), it is lower priority
     // it (aircraft1.type === aircraft2.type && aircraft1.size === small), it has lower priority
