@@ -46,11 +46,11 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
