@@ -43,6 +43,16 @@ The process that manages the aircraft queue satisfies the following conditions.
 */
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    this.planeHoldPass1 = {
+        type: 'passenger',
+        size: 'small',
+      };
+
+      this.planeHoldCargo1 = {
+        type: 'cargo',
+        size: 'small',
+      };
+         
 }
 
 ATCQueue.prototype.aircraftCount = function () {
