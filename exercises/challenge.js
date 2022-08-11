@@ -27,17 +27,21 @@ the following properties.
 The aircraft queue should implement the following interface.
 
 | Method | Parameters | Return | Notes |
-| - | - | - | - |
+| ------ | ---------- | ------ | ----- |
 | `aircraftCount()` | None | Integer | Count the number of aircraft's in the queue. |
 | `enqueue()` | Aircraft | None | Add an aircraft to the queue. |
-| `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. |
+| `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. (the aircraft that was removed) |
 
 The process that manages the aircraft queue satisfies the following conditions.
--   There is no limit on the size of the aircraft queue.
--   Aircraft's are dequeued according to their priority.
-    -   Passenger aircraft's have higher priority than cargo aircraft's.
+-   There is no limit on the size of the aircraft queue. (OK)
+
+-   Aircraft's are dequeued according to their priority. (shift or slice?)
+
+    -   Passenger aircraft's have higher priority than cargo aircraft's. 
+
     -   If two aircraft's have the same type but different sizes, then the large
         aircraft has a higher priority.
+
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
@@ -46,15 +50,58 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
+    const aircraftQueue = this.aircraftQueue
+
+    // find values in the aircraft queue to prioritize them
+    // 'aircraft' is being pushed into the queue based on it's priority
+    const bigPass = aircraftQueue.find((aircraft) => {
+        // return the size and type for big passenger types have first priority
+        // return  aircraft.size === 'large' && aircraft.type === 'passenger' 
+        // switch these around?
+        return aircraft.type === 'passenger' && aircraft.size === 'large' 
+    })
+
+    const smPass = aircraftQueue.find((aircraft) => {
+        return aircraft.type === 'passenger' && aircraft.size === 'small'
+    })
+    // large, not big
+    const bigCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === 'cargo' && aircraft.size === 'large'
+    })
+
+
+    const smCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === 'cargo' &&  aircraft.size === 'small'
+    }
+
+
+    const priority = bigPass || smPass || bigCargo || smCargo || time
+
+    // dequeue using shift? NOPE
+    // MDN docs: The shift() method is a mutating method. It changes the length and the content of this. In case you want the value of this to be the same, but return a new array with the first element removed, you can use arr.slice(1) instead.
+    // Unless I want to change the original array
+
+    // aircraftQueue.slice(aircraftQueue.indexOf(priority), 1)
+    // does not pass? After returning, does not remove aircrafts so we do have to modify original array
+    // try shift
+    // aircraftQueue.shift(aircraftQueue.indexOf(priority), 0)
+    // only removes, does not return it
+    // MDN: The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place. To access part of an array without modifying it, see slice().
+
+     aircraftQueue.splice(aircraftQueue.indexOf(priority), 1)
+    // forgot to return
+    return priority
     
+
+
 }
 
 // DO NOT MODIFY
