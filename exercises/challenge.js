@@ -47,24 +47,34 @@ const ATCQueue = function () {
         type: 'passenger',
         size: 'small',
       };
+      this.planeHoldPass2 = {
+        type: 'passenger',
+        size: 'large',
+      };
 
       this.planeHoldCargo1 = {
         type: 'cargo',
         size: 'small',
       };
+      this.planeHoldCargo2 = {
+        type: 'cargo',
+        size: 'large',
+      };
          
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+//return Integer | Count the number of aircraft's in the queue. |
+for (let i = 0; i < aircraftQueue.length; i++) 
+return aircraftQueue
 }
-
+aircraftCount()
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+//Add an aircraft to the queue. |
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+ // Return Aircraft | Remove an aircraft from the queue and return it. |
 }
 
 // DO NOT MODIFY
