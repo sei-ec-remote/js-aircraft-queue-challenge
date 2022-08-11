@@ -27,17 +27,21 @@ the following properties.
 The aircraft queue should implement the following interface.
 
 | Method | Parameters | Return | Notes |
-| - | - | - | - |
+| ------ | ---------- | ------ | ----- |
 | `aircraftCount()` | None | Integer | Count the number of aircraft's in the queue. |
 | `enqueue()` | Aircraft | None | Add an aircraft to the queue. |
-| `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. |
+| `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. (the aircraft that was removed) |
 
 The process that manages the aircraft queue satisfies the following conditions.
--   There is no limit on the size of the aircraft queue.
--   Aircraft's are dequeued according to their priority.
-    -   Passenger aircraft's have higher priority than cargo aircraft's.
+-   There is no limit on the size of the aircraft queue. (OK)
+
+-   Aircraft's are dequeued according to their priority. (shift or slice)
+
+    -   Passenger aircraft's have higher priority than cargo aircraft's. 
+
     -   If two aircraft's have the same type but different sizes, then the large
         aircraft has a higher priority.
+
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
@@ -46,14 +50,39 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
+    const aircraftQueue = this.aircraftQueue
+
+    // find values in the aircraft queue to prioritize them
+    // 'aircraft' is being pushed into the queue based on it's priority
+    const bigPass = aircraftQueue.find((aircraft) => {
+        // return the size and type for big passenger types have first priority
+        return aircraft.size === 'large' && aircraft.type === 'passenger'
+    })
+
+    const smPass = aircraftQueue.find((aircraft) => {
+        return aircraft.size === 'small' && aircraft.type === 'passenger'
+    })
+
+    const bigCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.size === 'big' && aircraft.type === 'cargo'
+    })
+
+
+    const smCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.size === 'small' && aircraft.type === 'cargo'
+    })
+
+
+    const priority = bigPass || smPass || bigCargo || smCargo /*|| time (didn't need this) ||*/  
+
     
 }
 
