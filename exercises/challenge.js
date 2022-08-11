@@ -80,13 +80,8 @@ ATCQueue.prototype.dequeue = function () {
 
     const smCargo = aircraftQueue.find((aircraft) => {
         return aircraft.type === 'cargo' &&  aircraft.size === 'small'
-    })
+    }
 
-    // need to place an order for time priority
-
-    const time = aircraftQueue.find((aircraft) => {
-        return aircraft.order === aircraftQueue.indexOf()
-    })
 
     const priority = bigPass || smPass || bigCargo || smCargo || time
 
@@ -97,8 +92,11 @@ ATCQueue.prototype.dequeue = function () {
     // aircraftQueue.slice(aircraftQueue.indexOf(priority), 1)
     // does not pass? After returning, does not remove aircrafts so we do have to modify original array
     // try shift
-    aircraftQueue.shift(aircraftQueue.indexOf(priority), 0)
+    // aircraftQueue.shift(aircraftQueue.indexOf(priority), 0)
+    // only removes, does not return it
+    // MDN: The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place. To access part of an array without modifying it, see slice().
 
+     aircraftQueue.splice(aircraftQueue.indexOf(priority), 1)
     // forgot to return
     return priority
     
