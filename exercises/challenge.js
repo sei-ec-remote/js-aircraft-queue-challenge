@@ -35,7 +35,7 @@ The aircraft queue should implement the following interface.
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue. (OK)
 
--   Aircraft's are dequeued according to their priority. (shift or slice)
+-   Aircraft's are dequeued according to their priority. (shift or slice?)
 
     -   Passenger aircraft's have higher priority than cargo aircraft's. 
 
@@ -81,9 +81,22 @@ ATCQueue.prototype.dequeue = function () {
     })
 
 
-    const priority = bigPass || smPass || bigCargo || smCargo /*|| time (didn't need this) ||*/  
+    const priority = bigPass || smPass || bigCargo || smCargo 
 
+    // dequeue using shift? NOPE
+    // MDN docs: The shift() method is a mutating method. It changes the length and the content of this. In case you want the value of this to be the same, but return a new array with the first element removed, you can use arr.slice(1) instead.
+    // Unless I want to change the original array
+
+    // aircraftQueue.slice(aircraftQueue.indexOf(priority), 1)
+    // does not pass? After returning, does not remove aircrafts so we do have to modify original array
+    // try shift
+    aircraftQueue.shift(aircraftQueue.indexOf(priority), 1)
+
+    // forgot to return
+    return priority
     
+
+
 }
 
 // DO NOT MODIFY
