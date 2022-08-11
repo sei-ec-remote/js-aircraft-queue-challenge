@@ -64,24 +64,31 @@ ATCQueue.prototype.dequeue = function () {
     // 'aircraft' is being pushed into the queue based on it's priority
     const bigPass = aircraftQueue.find((aircraft) => {
         // return the size and type for big passenger types have first priority
-        return aircraft.size === 'large' && aircraft.type === 'passenger'
+        // return  aircraft.size === 'large' && aircraft.type === 'passenger' 
+        // switch these around?
+        return aircraft.type === 'passenger' && aircraft.size === 'large' 
     })
 
     const smPass = aircraftQueue.find((aircraft) => {
-        return aircraft.size === 'small' && aircraft.type === 'passenger'
+        return aircraft.type === 'passenger' && aircraft.size === 'small'
     })
-
+    // large, not big
     const bigCargo = aircraftQueue.find((aircraft) => {
-        return aircraft.size === 'big' && aircraft.type === 'cargo'
+        return aircraft.type === 'cargo' && aircraft.size === 'large'
     })
 
 
     const smCargo = aircraftQueue.find((aircraft) => {
-        return aircraft.size === 'small' && aircraft.type === 'cargo'
+        return aircraft.type === 'cargo' &&  aircraft.size === 'small'
     })
 
+    // need to place an order for time priority
 
-    const priority = bigPass || smPass || bigCargo || smCargo 
+    const time = aircraftQueue.find((aircraft) => {
+        return aircraft.order === aircraftQueue.indexOf()
+    })
+
+    const priority = bigPass || smPass || bigCargo || smCargo || time
 
     // dequeue using shift? NOPE
     // MDN docs: The shift() method is a mutating method. It changes the length and the content of this. In case you want the value of this to be the same, but return a new array with the first element removed, you can use arr.slice(1) instead.
@@ -90,7 +97,7 @@ ATCQueue.prototype.dequeue = function () {
     // aircraftQueue.slice(aircraftQueue.indexOf(priority), 1)
     // does not pass? After returning, does not remove aircrafts so we do have to modify original array
     // try shift
-    aircraftQueue.shift(aircraftQueue.indexOf(priority), 1)
+    aircraftQueue.shift(aircraftQueue.indexOf(priority), 0)
 
     // forgot to return
     return priority
