@@ -34,9 +34,9 @@ The aircraft queue should implement the following interface.
 
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue.
--   Aircraft's are dequeued according to their priority.
-    -   Passenger aircraft's have higher priority than cargo aircraft's.
-    -   If two aircraft's have the same type but different sizes, then the large
+-   Aircraft are dequeued according to their priority.
+    -   Passenger aircraft have higher priority than cargo aircraft.
+    -   If two aircraft have the same type but different sizes, then the large
         aircraft has a higher priority.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
@@ -46,16 +46,47 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue.push(aircraft)
+    return 'aircraft added'
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+    console.log('this is the dequeue property')
+    let removedAircraft
+    if (this.aircraftQueue.find(aircraft => aircraft.type === 'passenger' && aircraft.size === 'large')) {
+        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'passenger', size: 'large'}))
+    } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'passenger' && aircraft.size === 'small')) {
+        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'passenger', size: 'small'}))
+    } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'cargo' && aircraft.size === 'large')) {
+        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'cargo', size: 'large'}))
+    } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'cargo' && aircraft.size === 'small')) {
+        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'cargo', size: 'small'}))
+    }
+    console.log('this aircraft was removed: ', removedAircraft.pop())
+    return removedAircraft.pop()
 }
+
+const newQueue = new ATCQueue
+
+console.log('this is the newQueue', newQueue)
+console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'small'}))
+console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'large'}))
+console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'small'}))
+console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'large'}))
+console.log('this is the aircraft count, it should return an integer', newQueue.aircraftCount())
+console.log('this is the queue in newQueue', newQueue.aircraftQueue)
+newQueue.dequeue()
+console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+newQueue.dequeue()
+console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+newQueue.dequeue()
+console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+newQueue.dequeue()
+console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
 
 // DO NOT MODIFY
 module.exports = ATCQueue
