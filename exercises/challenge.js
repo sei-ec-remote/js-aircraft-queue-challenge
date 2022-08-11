@@ -60,17 +60,33 @@ ATCQueue.prototype.enqueue = function (aircraft) {
 
 ATCQueue.prototype.dequeue = function () {
     // this sorts the queue(removes from queue) based on the following conditions:
-    // general remove from queue function
 
-    // this general one should go last in order iirc
-    return this.aircraftQueue.splice(-1,1)
     ////////
     // if (aircraft.type === cargo), it is lower priority
+    // we want to REMOVE FROM ARRAY (splice)
+    // so, let's find out 
+    while (this.aircraftQueue.length > 0) {
+        let filteredPassenger = this.aircraftQueue.find(aircraft => aircraft.type === "passenger")
+        if (filteredPassenger) {
+            const passengerIdx = this.aircraftQueue.findIndex((aircraft) => aircraft === filteredPassenger)
+            const removedValue =  this.aircraftQueue.splice(passengerIdx, 1)
+            return removedValue[0]
+            // return(filteredPassenger);
+        } else {
+            const removedValue = this.aircraftQueue.splice(-1,1)
+            return removedValue[0]
+        }
+    }
+    
     // it (aircraft1.type === aircraft2.type && aircraft1.size === small), it has lower priority
         // else if (aircraft2.size === small), it has lower priority
     // if (aircraft1.type === aircraft2.type && aircraft1.size === aircraft2.size), aircraft2 has lower priority
     ////////
     // this returns an aircraft name
+
+    // general remove from queue function
+    // this general one should go last in order iirc
+    return this.aircraftQueue.splice(-1,1)
 }
 
 // DO NOT MODIFY
