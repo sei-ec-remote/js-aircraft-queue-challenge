@@ -65,24 +65,26 @@ ATCQueue.prototype.dequeue = function () {
     // if (aircraft.type === cargo), it is lower priority
     // we want to REMOVE FROM ARRAY (splice)
     // so, let's find out 
+
+    // define passenger
+    // define cargo
+    
+    // what's the priority order?
+    // big passenger, small passenger, big cargo, little cargo
+    const priorityAircraft = bigPassenger || smallPassenger || bigCargo || smallCargo
+    // define the 4 variations
+    const bigPassenger = this.aircraftQueue.find(aircraft => (aircraft.type === "passenger" && aircraft.size === "large"))
+    const smallPassenger = this.aircraftQueue.find(aircraft => (aircraft.type === "passenger" && aircraft.size === "small"))
+    const bigCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "large"))
+    const smallCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "small"))
+
     while (this.aircraftQueue.length > 0) {
-        let filteredPassenger = this.aircraftQueue.find(aircraft => aircraft.type === "passenger")
-        if (filteredPassenger) {
-            const passengerIdx = this.aircraftQueue.findIndex((aircraft) => aircraft === filteredPassenger)
-            const removedValue =  this.aircraftQueue.splice(passengerIdx, 1)
-            return removedValue[0]
-            // return(filteredPassenger);
-        } else {
-            const removedValue = this.aircraftQueue.splice(-1,1)
-            return removedValue[0]
-        }
+        // we want to search and shift based on priority
+        // can we try JUST finding it? if not, next try shift
+
+        
     }
     
-    // it (aircraft1.type === aircraft2.type && aircraft1.size === small), it has lower priority
-        // else if (aircraft2.size === small), it has lower priority
-    // if (aircraft1.type === aircraft2.type && aircraft1.size === aircraft2.size), aircraft2 has lower priority
-    ////////
-    // this returns an aircraft name
 
     // general remove from queue function
     // this general one should go last in order iirc
