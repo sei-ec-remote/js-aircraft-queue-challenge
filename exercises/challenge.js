@@ -71,24 +71,27 @@ ATCQueue.prototype.dequeue = function () {
     
     // what's the priority order?
     // big passenger, small passenger, big cargo, little cargo
-    const priorityAircraft = bigPassenger || smallPassenger || bigCargo || smallCargo
     // define the 4 variations
     const bigPassenger = this.aircraftQueue.find(aircraft => (aircraft.type === "passenger" && aircraft.size === "large"))
     const smallPassenger = this.aircraftQueue.find(aircraft => (aircraft.type === "passenger" && aircraft.size === "small"))
     const bigCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "large"))
     const smallCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "small"))
+    const priorityAircraft = bigPassenger || smallPassenger || bigCargo || smallCargo
+    
 
     while (this.aircraftQueue.length > 0) {
         // we want to search and shift based on priority
         // can we try JUST finding it? if not, next try shift
-
-        
+        let dequeued = priorityAircraft
+        // earlier enqueued should get returned first
+        // so if dequeued.length > 1, run a for loop?
+        return dequeued        
     }
     
 
     // general remove from queue function
     // this general one should go last in order iirc
-    return this.aircraftQueue.splice(-1,1)
+    // return this.aircraftQueue.splice(-1,1)
 }
 
 // DO NOT MODIFY
