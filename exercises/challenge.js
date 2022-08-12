@@ -55,30 +55,38 @@ ATCQueue.prototype.enqueue = function (aircraft) {
 }
 
 ATCQueue.prototype.dequeue = function () {
-    console.log('this is the dequeue property')
     let removedAircraft
     if (this.aircraftQueue.find(aircraft => aircraft.type === 'passenger' && aircraft.size === 'large')) {
-        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'passenger', size: 'large'}))
+        // console.log('we found a large passenger plane')
+        const index = this.aircraftQueue.findIndex(aircraft => aircraft.type === 'passenger' && aircraft.size === 'large')
+        removedAircraft = this.aircraftQueue.splice(index, 1)
     } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'passenger' && aircraft.size === 'small')) {
-        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'passenger', size: 'small'}))
+        // console.log('we found a small passenger plane')
+        const index = this.aircraftQueue.findIndex(aircraft => aircraft.type === 'passenger' && aircraft.size === 'small')
+        removedAircraft = this.aircraftQueue.splice(index, 1)
     } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'cargo' && aircraft.size === 'large')) {
-        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'cargo', size: 'large'}))
+        // console.log('we found a large cargo plane')
+        const index = this.aircraftQueue.findIndex(aircraft => aircraft.type === 'cargo' && aircraft.size === 'large')
+        removedAircraft = this.aircraftQueue.splice(index, 1)
     } else if (this.aircraftQueue.find(aircraft => aircraft.type === 'cargo' && aircraft.size === 'small')) {
-        removedAircraft = this.aircraftQueue.splice(this.aircraftQueue.indexOf({type: 'cargo', size: 'small'}))
+        // console.log('we found a small cargo plane')
+        const index = this.aircraftQueue.findIndex(aircraft => aircraft.type === 'cargo' && aircraft.size === 'small')
+        removedAircraft = this.aircraftQueue.splice(index, 1)
     }
-    console.log('this aircraft was removed: ', removedAircraft.pop())
+    // console.log('this aircraft was removed: ', removedAircraft.pop())
     return removedAircraft.pop()
 }
 
 const newQueue = new ATCQueue
 
-console.log('this is the newQueue', newQueue)
+// console.log('this is the newQueue', newQueue)
+console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'large'}))
 console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'small'}))
 console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'large'}))
 console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'small'}))
-console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'large'}))
 console.log('this is the aircraft count, it should return an integer', newQueue.aircraftCount())
 console.log('this is the queue in newQueue', newQueue.aircraftQueue)
+// console.log(newQueue.aircraftQueue.indexOf({type: 'passenger', size: 'large'}))
 newQueue.dequeue()
 console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
 newQueue.dequeue()
