@@ -41,20 +41,97 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
+
 const ATCQueue = function () {
 	this.aircraftQueue = []
 }
-
+// Count the number of aircraft's in the queue. |
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
-
+// Add an aircraft to the queue. 
+// ex. type: 'passenger', size: 'large' 
+// type: `passenger` or `cargo` size: `small` or `large`
 ATCQueue.prototype.enqueue = function (aircraft) {
+    let index = null
 
+    // if C && S
+    if (aircraft.type === `cargo` && 
+    aircraft.size === `small`) {
+        // There no lower priority so goes at start of the array.
+        this.aircraftQueue.unshift(aircraft)
+    }
+
+    // if CL
+    if (aircraft.type === `cargo` && 
+        aircraft.size === `large`) {
+            // Grab index of first CL
+            index = this.aircraftQueue.findIndex(ac => (ac.type === `cargo` && ac.size === `large`))
+            
+            // if no we dont have it. 
+            if (index === -1) {
+                // index P (if PL or PS is not matter.)
+                index = this.aircraftQueue.findIndex(ac => ac.type === `passenger`)
+                    //if no - push
+                    if (index === -1) {
+                        this.aircraftQueue.push(aircraft)
+                    }
+                    // if yes - splice
+                    else {
+                        this.aircraftQueue.splice(index, 0, aircraft)
+                    }
+            }
+            // if yes - splice(ac, CL)
+            else {
+                this.aircraftQueue.splice(index, 0, aircraft)
+            }
+        }
+    // // if P && S
+    if (aircraft.type === `passenger` && 
+        aircraft.size === `small`) {
+            index = this.aircraftQueue.findIndex(ac => {
+                if (ac.type === `passenger`) {
+                    if (ac.size === `small`) {
+                        return true}
+                }
+            }) 
+
+            // if no - getIndex (PL)
+            if (index === -1) {
+                index = this.aircraftQueue.findIndex(
+                    (ac) => ac.type === `passenger` && ac.size === `large`) 
+
+                if (index === -1) {
+                    this.aircraftQueue.push(aircraft)
+                }
+                else {
+                    this.aircraftQueue.splice(index, 0, aircraft)
+                }
+            }
+            // if yes - getIndex(PL)
+            else {this.aircraftQueue.splice(index, 0, aircraft)}
+        }
+   
+    // // if P && L
+    if (aircraft.type === `passenger` && 
+        aircraft.size === `large`){
+        // check (PL).
+        index = this.aircraftQueue.findIndex(ac => (ac.type === `passenger` && ac.size === `large`))
+        
+        // if no - findIndex(len)
+        if (index === -1) {
+            this.aircraftQueue.push(aircraft)
+        }
+        else {this.aircraftQueue.splice(index, 0, aircraft)
+        }
+    }
+        
+        // 
 }
 
+// Remove an aircraft from the queue and return it. |
 ATCQueue.prototype.dequeue = function () {
-    
+    return this.aircraftQueue.pop()
 }
 
 // DO NOT MODIFY
