@@ -82,10 +82,20 @@ ATCQueue.prototype.dequeue = function () {
     while (this.aircraftQueue.length > 0) {
         // we want to search and shift based on priority
         // can we try JUST finding it? if not, next try shift
-        let dequeued = priorityAircraft
+        let dequeuedIndex = this.aircraftQueue.indexOf(priorityAircraft)
+        console.log(dequeuedIndex)
+        // SPLICE INSTEAD OF SLICE
+        // SLICE - The original array will not be modified.
+        // SPLICE - changes the contents of an array
+        let dequeued = this.aircraftQueue.splice(dequeuedIndex, 1)[0]
+        // console.log(dequeued)
         // earlier enqueued should get returned first
         // so if dequeued.length > 1, run a for loop?
-        return dequeued        
+        // UNNEEDED
+        // if (dequeued.length > 1) {
+        //     console.log(dequeued)
+        // }
+        return dequeued      
     }
     
 
