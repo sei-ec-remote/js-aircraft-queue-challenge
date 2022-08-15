@@ -77,7 +77,6 @@ ATCQueue.prototype.dequeue = function () {
     const bigCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "large"))
     const smallCargo = this.aircraftQueue.find(aircraft => (aircraft.type === "cargo" && aircraft.size === "small"))
     const priorityAircraft = bigPassenger || smallPassenger || bigCargo || smallCargo
-    
 
     while (this.aircraftQueue.length > 0) {
         // we want to search and shift based on priority
