@@ -41,31 +41,39 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
-const ATCQueue = function () {
-	this.aircraftQueue = []
-    this.planeHoldPass1 = {
-        type: 'passenger',
-        size: 'small',
-      };
-      this.planeHoldPass2 = {
-        type: 'passenger',
-        size: 'large',
-      };
 
-      this.planeHoldCargo1 = {
-        type: 'cargo',
-        size: 'small',
-      };
-      this.planeHoldCargo2 = {
-        type: 'cargo',
-        size: 'large',
-      };
+// class Plane {
+//   constructer(type, size) {
+//     this.type = type
+//     this.size = size
+//   }
+
+
+const ATCQueue = function (type, size) {
+	this.aircraftQueue = []
+    // this.planeHoldPass1 = {
+    //     type: 'passenger',
+    //     size: 'small',
+    //   };
+    //   this.planeHoldPass2 = {
+    //     type: 'passenger',
+    //     size: 'large',
+    //   };
+
+    //   this.planeHoldCargo1 = {
+    //     type: 'cargo',
+    //     size: 'small',
+    //   };
+    //   this.planeHoldCargo2 = {
+    //     type: 'cargo',
+    //     size: 'large',
+    //   };
          
-}
+   }
 
 ATCQueue.prototype.aircraftCount = function () {
 //return Integer | Count the number of aircraft's in the queue. |
-for (let i = 0; i < aircraftQueue.length; i++) 
+for (let i = 0; i < this.aircraftQueue.length; i++) 
 return aircraftQueue
 }
 aircraftCount()
@@ -75,6 +83,17 @@ ATCQueue.prototype.enqueue = function (aircraft) {
 
 ATCQueue.prototype.dequeue = function () {
  // Return Aircraft | Remove an aircraft from the queue and return it. |
+    const higherPriority = (aircraft) => {
+    if (aircraft.type === 'passenger' && aircraft.size === 'large')
+    return aircraft
+    } 
+    elseif (aircraft.type === 'passenger') {
+
+    } 
+    else (aircraft.type === 'cargo' && aircraft.size === 'large') {
+
+    }
+    
 }
 
 // DO NOT MODIFY
