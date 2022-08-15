@@ -72,29 +72,32 @@ ATCQueue.prototype.dequeue = function () {
         // console.log('we found a small cargo plane')
         const index = this.aircraftQueue.findIndex(aircraft => aircraft.type === 'cargo' && aircraft.size === 'small')
         removedAircraft = this.aircraftQueue.splice(index, 1)
+    } else {
+        return 'No aircraft remain in the queue'
     }
     // console.log('this aircraft was removed: ', removedAircraft.pop())
     return removedAircraft.pop()
 }
 
-const newQueue = new ATCQueue
+// const newQueue = new ATCQueue
 
 // console.log('this is the newQueue', newQueue)
-console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'large'}))
-console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'small'}))
-console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'large'}))
-console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'small'}))
-console.log('this is the aircraft count, it should return an integer', newQueue.aircraftCount())
-console.log('this is the queue in newQueue', newQueue.aircraftQueue)
+// console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'large'}))
+// console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'passenger', size: 'small'}))
+// console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'large'}))
+// console.log('this is the enqueue function, it should add an aircraft:', newQueue.enqueue({type: 'cargo', size: 'small'}))
+// console.log('this is the aircraft count, it should return an integer', newQueue.aircraftCount())
+// console.log('this is the queue in newQueue', newQueue.aircraftQueue)
 // console.log(newQueue.aircraftQueue.indexOf({type: 'passenger', size: 'large'}))
-newQueue.dequeue()
-console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
-newQueue.dequeue()
-console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
-newQueue.dequeue()
-console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
-newQueue.dequeue()
-console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+// newQueue.dequeue()
+// console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+// console.log('this is the aircraft count, it should return an integer', newQueue.aircraftCount())
+// newQueue.dequeue()
+// console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+// newQueue.dequeue()
+// console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
+// newQueue.dequeue()
+// console.log('this is the updated queue in newQueue', newQueue.aircraftQueue)
 
 // DO NOT MODIFY
 module.exports = ATCQueue
