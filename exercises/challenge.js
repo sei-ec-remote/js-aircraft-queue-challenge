@@ -44,93 +44,115 @@ The process that manages the aircraft queue satisfies the following conditions.
 
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    this.priorityQueue = [null, null, null, null]
 }
 // Count the number of aircraft's in the queue. |
 ATCQueue.prototype.aircraftCount = function () {
     return this.aircraftQueue.length
 }
+
 // Add an aircraft to the queue. 
 // ex. type: 'passenger', size: 'large' 
 // type: `passenger` or `cargo` size: `small` or `large`
 ATCQueue.prototype.enqueue = function (aircraft) {
+    console.log('In the beginning of added to the queue.')
+    console.table(this.aircraftQueue)
+    console.table(this.priorityQueue)
+    
     let index = null
+    let aircraftPriority = getAircraftPriority(aircraft)
+    const queue = this.aircraftQueue
+    console.log('We now looking at aircraft: ', aircraft)
 
-    // if C && S
-    if (aircraft.type === `cargo` && 
-    aircraft.size === `small`) {
-        // There no lower priority so goes at start of the array.
-        this.aircraftQueue.unshift(aircraft)
+    if (this.aircraftQueue.length === 0){
+        this.aircraftQueue.push(aircraft)
+        this.priorityQueue[aircraftPriority] = 0
+    } 
+    // If aircraftQ is not empty.
+    else {
+        // check if priory index been assinged. 
+        // If it has then just splice it in.
+        if (this.priorityQueue[aircraftPriority] !== null) {
+            // splice in the new aircrast 
+            console.log('This aircrafts priority is on the stack.')
+            splice(this.priorityQueue[aircraftPriority], aircraft, queue, this.priorityQueue)
+        
+        // If it has not been assinged yet. We need find out if there a higher priority one in.
+        } else {
+            // need get the index for next higher priorty
+            console.log('this aircraft proiity is not on the stack')
+            for (let indexPriority = aircraftPriority + 1; indexPriority <  this.priorityQueue.length; indexPriority++) {
+                // if we find a higher priority aircraft assinged.
+                if (this.priorityQueue[indexPriority] !== null) {
+                    // this.priorityQueue[aircraftPriority] = this.priorityQueue[indexPriority]
+                
+                    // Add one to the endex to everyting to the right of what as just inserted.
+                    splice(this.priorityQueue[indexPriority], aircraft, queue, this.priorityQueue)
+                    return
+                }
+            } 
+            console.log('This is none with a higher priority thien this aircraft')
+            splice(queue.length, aircraft, queue, this.priorityQueue)
+            // this.priorityQueue[aircraftPriority] = queue.length
+            console.log('at end after splice just before ending.')
+            console.table(queue)
+            console.log('priorityQueue')
+            console.table(this.priorityQueue)
+            console.log('At the end')
+        }
     }
+}
 
+const splice = (index, aircraft, queue, priorityQueue) => {
+    console.log('We are indside the splice function:')
+    
+    const aircraftPriority = getAircraftPriority(aircraft)
+    
+    queue.splice(index, 0, aircraft)
+    
+    // adjust the aircrasft priority array everyting to the right of what as just inserted.
+    priorityQueue[aircraftPriority] = index
+    for (let index = aircraftPriority + 1; index < priorityQueue.length; index++) {
+        if (priorityQueue[index] !== null)
+            priorityQueue[index]++
+    }
+    console.log('ADDED aircraft queue')
+    console.table(queue)
+    console.log('ADDED this.priorityQueue')
+    console.table(priorityQueue)
+    console.log('At the end')
+}
+
+const getAircraftPriority = aircraft => {
+    if (aircraft.type === `cargo` && 
+        aircraft.size === `small`) {
+            return 0
+    }
     // if CL
     if (aircraft.type === `cargo` && 
         aircraft.size === `large`) {
-            // Grab index of first CL
-            index = this.aircraftQueue.findIndex(ac => (ac.type === `cargo` && ac.size === `large`))
-            
-            // if no we dont have it. 
-            if (index === -1) {
-                // index P (if PL or PS is not matter.)
-                index = this.aircraftQueue.findIndex(ac => ac.type === `passenger`)
-                    //if no - push
-                    if (index === -1) {
-                        this.aircraftQueue.push(aircraft)
-                    }
-                    // if yes - splice
-                    else {
-                        this.aircraftQueue.splice(index, 0, aircraft)
-                    }
-            }
-            // if yes - splice(ac, CL)
-            else {
-                this.aircraftQueue.splice(index, 0, aircraft)
-            }
-        }
+            return 1
+    }
     // // if P && S
     if (aircraft.type === `passenger` && 
         aircraft.size === `small`) {
-            index = this.aircraftQueue.findIndex(ac => {
-                if (ac.type === `passenger`) {
-                    if (ac.size === `small`) {
-                        return true}
-                }
-            }) 
-
-            // if no - getIndex (PL)
-            if (index === -1) {
-                index = this.aircraftQueue.findIndex(
-                    (ac) => ac.type === `passenger` && ac.size === `large`) 
-
-                if (index === -1) {
-                    this.aircraftQueue.push(aircraft)
-                }
-                else {
-                    this.aircraftQueue.splice(index, 0, aircraft)
-                }
-            }
-            // if yes - getIndex(PL)
-            else {this.aircraftQueue.splice(index, 0, aircraft)}
-        }
-   
+            return 2
+    }
     // // if P && L
     if (aircraft.type === `passenger` && 
         aircraft.size === `large`){
-        // check (PL).
-        index = this.aircraftQueue.findIndex(ac => (ac.type === `passenger` && ac.size === `large`))
-        
-        // if no - findIndex(len)
-        if (index === -1) {
-            this.aircraftQueue.push(aircraft)
-        }
-        else {this.aircraftQueue.splice(index, 0, aircraft)
-        }
+            return 3
     }
-        
-        // 
 }
 
 // Remove an aircraft from the queue and return it. |
 ATCQueue.prototype.dequeue = function () {
+    for (let i = 0; i < this.priorityQueue.length; i++) {
+        if (this.aircraftQueue.length === this.priorityQueue[i]) {
+            this.priorityQueue[i] = null
+            break
+        }
+    }
     return this.aircraftQueue.pop()
 }
 
