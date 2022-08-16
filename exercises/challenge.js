@@ -55,57 +55,40 @@ ATCQueue.prototype.aircraftCount = function () {
 // ex. type: 'passenger', size: 'large' 
 // type: `passenger` or `cargo` size: `small` or `large`
 ATCQueue.prototype.enqueue = function (aircraft) {
-    console.log('In the beginning of added to the queue.')
-    console.table(this.aircraftQueue)
-    console.table(this.priorityQueue)
-    
     let index = null
     let aircraftPriority = getAircraftPriority(aircraft)
     const queue = this.aircraftQueue
-    console.log('We now looking at aircraft: ', aircraft)
 
+    // If the aircaft queue is empty we will just push the first craft on and set it's priority Queue to it's index 0
     if (this.aircraftQueue.length === 0){
         this.aircraftQueue.push(aircraft)
         this.priorityQueue[aircraftPriority] = 0
-    } 
+    }
+
     // If aircraftQ is not empty.
     else {
         // check if priory index been assinged. 
-        // If it has then just splice it in.
+        // If it has then just splice it in it's place. (splice will handle the priority queue)
         if (this.priorityQueue[aircraftPriority] !== null) {
-            // splice in the new aircrast 
-            console.log('This aircrafts priority is on the stack.')
             splice(this.priorityQueue[aircraftPriority], aircraft, queue, this.priorityQueue)
-        
+        } 
         // If it has not been assinged yet. We need find out if there a higher priority one in.
-        } else {
+        else {
             // need get the index for next higher priorty
-            console.log('this aircraft proiity is not on the stack')
             for (let indexPriority = aircraftPriority + 1; indexPriority <  this.priorityQueue.length; indexPriority++) {
                 // if we find a higher priority aircraft assinged.
                 if (this.priorityQueue[indexPriority] !== null) {
-                    // this.priorityQueue[aircraftPriority] = this.priorityQueue[indexPriority]
-                
                     // Add one to the endex to everyting to the right of what as just inserted.
                     splice(this.priorityQueue[indexPriority], aircraft, queue, this.priorityQueue)
                     return
                 }
             } 
-            console.log('This is none with a higher priority thien this aircraft')
             splice(queue.length, aircraft, queue, this.priorityQueue)
-            // this.priorityQueue[aircraftPriority] = queue.length
-            console.log('at end after splice just before ending.')
-            console.table(queue)
-            console.log('priorityQueue')
-            console.table(this.priorityQueue)
-            console.log('At the end')
         }
     }
 }
 
 const splice = (index, aircraft, queue, priorityQueue) => {
-    console.log('We are indside the splice function:')
-    
     const aircraftPriority = getAircraftPriority(aircraft)
     
     queue.splice(index, 0, aircraft)
@@ -116,11 +99,6 @@ const splice = (index, aircraft, queue, priorityQueue) => {
         if (priorityQueue[index] !== null)
             priorityQueue[index]++
     }
-    console.log('ADDED aircraft queue')
-    console.table(queue)
-    console.log('ADDED this.priorityQueue')
-    console.table(priorityQueue)
-    console.log('At the end')
 }
 
 const getAircraftPriority = aircraft => {
