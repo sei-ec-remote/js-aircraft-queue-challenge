@@ -43,18 +43,91 @@ The process that manages the aircraft queue satisfies the following conditions.
 */
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    this.head = 0
+    this.tail = 0
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    this.aircraftQueue[this.tail] = aircraft
+    this.tail++
 }
 
 ATCQueue.prototype.dequeue = function () {
+    let toBeDequeued = []
+    console.log('This is BEFORE dequeing:',this.aircraftQueue)
+    // this.aircraftQueue
+    //     .map((i, thisAircraft) => {
+    //         // if(toBeDequeued.length === 0) {
+    //         //     toBeDequeued.push(thisAircraft)
+    //         //     return
+    //         // }else 
+    //         if(thisAircraft.type === 'passenger') {
+    //             if(thisAircraft.size === 'large')
+    //             this.aircraftQueue.splice(i, 1)
+    //             this.aircraftQueue.unshift(thisAircraft)
+    //             return
+    //         } else if(thisAircraft.type === 'cargo') {
+    //             this.this.aircraftQueue.splice(i, 1)
+    //             this.aircraftQueue.push(thisAircraft)
+    //             return thisAircraft
+    //         } else {
+    //             toBeDequeued.push(thisAircraft)
+    //         }
+    // })
+    // async function toBeDequeued
+    const largePassenger = this.aircraftQueue.filter((plane, i) => {
+        if(plane.type === 'passenger' && plane.size === 'large') {
+            // console.log(plane)
+            // this.aircraftQueue.splice(i, 1)
+            toBeDequeued.unshift(plane)
+            return
+        }
+    })
+    const smallPassenger = this.aircraftQueue.filter((plane, i) => {
+        if(plane.type === 'passenger' && plane.size === 'small') {
+            // console.log(plane)
+            // toBeDequeued.unshift(plane)
+            // this.aircraftQueue.splice(i, 1)
+            toBeDequeued.unshift(plane)
+            return
+        }
+    })
+    const largePlanes = this.aircraftQueue.filter((plane, i) => {
+        if(plane.size === 'large' && plane.type !== 'passenger') {
+            // console.log(plane)
+            // toBeDequeued.unshift(plane)
+            // this.aircraftQueue.splice(i, 1)
+            toBeDequeued.unshift(plane)
+            return
+        }
+    })
+    const smallPlanes = this.aircraftQueue.filter((plane, i) => {
+        if(plane.size === 'small' && plane.type !== 'passenger') {
+            // console.log(plane)
+            // toBeDequeued.unshift(plane)
+            // this.aircraftQueue.splice(i, 1)
+            toBeDequeued.unshift(plane)
+            return
+        }
+    })
     
+    this.aircraftQueue = toBeDequeued
+    console.log('This is after dequeuing:',this.aircraftQueue)
+    // this.aircraftQueue.sort((a,b) => {
+    //     if(a.type === 'cargo' && b.type === 'passenger') {
+            
+    //         return 1
+    //     }
+    //     else return 0
+    // })
+    // console.log(this.aircraftQueue)
+    this.aircraftQueue.map(aircraft => this.aircraftQueue.pop())
+    
+    return 
 }
 
 // DO NOT MODIFY
