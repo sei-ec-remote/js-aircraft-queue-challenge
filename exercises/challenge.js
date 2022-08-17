@@ -46,15 +46,40 @@ const ATCQueue = function () {
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    // just use .length and it will return how many aircrafts there are
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    // use push to place a aircraft at the end of the array
+    return this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+
+    // Use the find method with && condition to look for both the type and size of aircraft
+    const largePassenger = this.aircraftQueue.find(aircraft => {
+        return aircraft.type === "passenger" && aircraft.size === "large"
+    })
+    const smallPassenger = this.aircraftQueue.find(aircraft => {
+        return aircraft.type === "passenger" && aircraft.size === "small"
+    })
+    const largeCargo = this.aircraftQueue.find(aircraft => {
+        return aircraft.type === "cargo" && aircraft.size === "large"
+    })
+    const smallCargo = this.aircraftQueue.find(aircraft => {
+        return aircraft.type === "cargo" && aircraft.size === "small"
+    })
+
+    const highPriority = [largePassenger, smallPassenger, largeCargo, smallCargo]
+
+    // function findPriority () {
+    //     for (let i = 0; i < highPriority.length; i++) {
+    //          if ()
+    //     }
+    // }
+
+    this.aircraftQueue.splice(this.aircraftQueue.indexOf(highPriority), 1)
 }
 
 // DO NOT MODIFY
