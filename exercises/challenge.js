@@ -41,20 +41,57 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
+
+
+
+const largePassengerQueue = []
+const smallPassengerQueue = []
+const largeCargoQueue = []
+const smallCargoQueue = []
+
+
 const ATCQueue = function () {
 	this.aircraftQueue = []
 }
 
 ATCQueue.prototype.aircraftCount = function () {
+    return this.aircraftQueue.length()
 
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
+    // add index order value as key value pair
+
+
+    // SHIFT (takes off the first) AND PUSH ( adds to the end)
+
+    if(aircraft.type === passenger && aircraft.size === large){
+        largePassengerQueue.push() 
+    } else if(aircraft.type === passenger && aircraft.size === small){
+        smallPassengerQueue.push()
+    } else if(aircraft.type === cargo && aircraft.size === large){
+        largeCargoQueue.push()
+    } else if(aircraft.type === cargo && aircraft.size === small){
+        smallCargoQueue.push()
+    }
+    // sorts the list by priority
+
+    this.largeCargoQueue.push(aircraft)
 
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+
+    if(largePassengerQueue !== []){
+        return largePassengerQueue.shift()
+    } else if(smallPassengerQueue !== []){
+        return smallPassengerQueue.shift()
+    } else if(largeCargoQueue !== []){
+        return largeCargoQueue.shift()
+    } else if(smallCargoQueue !== []){
+        return smallCargoQueue.shift()
+    } else { return }
+
 }
 
 // DO NOT MODIFY
