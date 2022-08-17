@@ -43,18 +43,55 @@ The process that manages the aircraft queue satisfies the following conditions.
 */
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    // count the number of aircraft in the queue
+    // input: array = return: integer
+    // if (this.aircraftQueue.length === 0) {
+    //     return 0
+    // }
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    // add aircraft to the end of queue
+    // this.aircraftQueue.append(aircraft)
+    this.aircraftQueue.push(aircraft)
 }
 
-ATCQueue.prototype.dequeue = function () {
-    
+ATCQueue.prototype.dequeue = function (aircraft) {
+    // remove from queue the first aircraft in line according to priority
+    // priority: passenger before cargo and large before small
+
+    // while (this.aircraftQueue.length > 0) {
+    //     if(aircraft.type ==='passenger' && aircraft.size === 'large') {
+    //         this.aircraftQueue.splice(aircraft)
+    //     } else if (aircraft.type ==='passenger' && aircraft.size === 'small') {
+    //         this.aircraftQueue.splice(aircraft)
+    //     } else if (aircraft.type ==='cargo' && aircraft.size === 'large') {
+    //         this.aircraftQueue.splice(aircraft)
+    //     } else if (aircraft.type ==='cargo' && aircraft.size === 'small') {
+    //         this.aircraftQueue.splice(aircraft)
+    //     }
+    // }
+
+    const largePassenger = aircraftQueue.find((aircraft) => {
+        return aircraft.type === passenger && aircraft.size === large
+    })
+    const smallPassenger = aircraftQueue.find((aircraft) => {
+        return aircraft.type === passenger && aircraft.size === small
+    })
+    const largeCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === cargo && aircraft.size === large
+    })
+        const smallCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === cargo && aircraft.size === small
+    })
+    const aircraftPriority = largePassenger || smallPassenger || largeCargo || smallCargo
+    aircraftQueue.splice(aircraftQueue.indexOf(aircraftPriority), 1)
+    return aircraftPriority
 }
 
 // DO NOT MODIFY
