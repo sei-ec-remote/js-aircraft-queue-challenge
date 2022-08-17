@@ -47,12 +47,14 @@ The process that manages the aircraft queue satisfies the following conditions.
 const largePassengerQueue = []
 const smallPassengerQueue = []
 const largeCargoQueue = []
-const smallCargoQueue = []
+const smallCargoQueue = [] 
 
 
 const ATCQueue = function () {
     // create the aircraft queue array
-	this.aircraftQueue = []
+	if (this.aircraftQueue.length === 0){
+        return 0
+    }
 }
 
 ATCQueue.prototype.aircraftCount = function () {
