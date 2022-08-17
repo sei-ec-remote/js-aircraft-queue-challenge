@@ -41,21 +41,63 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    // shouldn't have to do anything here I think.
+    // this.aircraftQueue = []
 }
 
 ATCQueue.prototype.aircraftCount = function () {
-
+    // needs to return the length in aircraftCount
+    // how many are in queue
+    return this.aircraftQueue.length
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
-
+    // push aircraft(s) into the queue(enqueue)
+    // push method
+    this.aircraftQueue.push(aircraft)
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+    // need to reassign variable here
+    // in the queue
+    // pop the aircraft
+    const aircraftQueue = this.aircraftQueue
+    // this is where the main logic will take place
+    // since this is where all the aircrafts are released
+    // create logic according to the conditions above
+
+    // type - passenger or cargo
+    // size - small or large
+    // passenger over cargo
+    // same type buy different size, larger has higher priority
+    // if both type and size are the same, aircraft that was enqueue earlier has higher priority
+    const largePassenger = aircraftQueue.find((aircraft) => {
+        // return the size and type for "passenger"
+        return aircraft.type === "passenger" && aircraft.size === "large"
+    })
+    const smallPassenger = aircraftQueue.find((aircraft) => {
+        return aircraft.type === "passenger" && aircraft.size === "small"
+    })
+    const largeCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === "cargo" && aircraft.size === "large"
+    })
+    const smallCargo = aircraftQueue.find((aircraft) => {
+        return aircraft.type === "cargo" && aircraft.size === "small"
+    })
+
+    const highPriority = largePassenger || smallPassenger || largeCargo || smallCargo
+
+    // splice to remove an aircraft at index of ...
+    aircraftQueue.splice(index, 1)
+    return aircraft
 }
+
+
 
 // DO NOT MODIFY
 module.exports = ATCQueue
