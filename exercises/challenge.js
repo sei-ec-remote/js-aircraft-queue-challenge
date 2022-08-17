@@ -1,11 +1,11 @@
 /*
 =============== JS Aircraft Queue Challenge ==================
 GOAL: Read each question and write code to complete each task
-      given. Do not change starter code or function names.
-      
+        given. Do not change starter code or function names.
+
 TEST: To test run the commands `npm run test` in your terminal
-      at the root of this directory.(js-aircraft-queue-challenge)
-      Don't worry about capitalization.
+        at the root of this directory.(js-aircraft-queue-challenge)
+        Don't worry about capitalization.
 */
 
 /*
@@ -35,27 +35,70 @@ The aircraft queue should implement the following interface.
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue.
 -   Aircraft's are dequeued according to their priority.
-    -   Passenger aircraft's have higher priority than cargo aircraft's.
-    -   If two aircraft's have the same type but different sizes, then the large
-        aircraft has a higher priority.
-    -   If there is more than one aircraft with the same type and size, then the
+-   Passenger aircraft's have higher priority than cargo aircraft's.
+-   If two aircraft's have the same type but different sizes, then the large
+aircraft has a higher priority.
+-   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
+const largePassengerQueue = []
+const smallPassengerQueue = []
+const largeCargoQueue = []
+const smallCargoQueue = []
+
+
 const ATCQueue = function () {
 	this.aircraftQueue = []
 }
 
 ATCQueue.prototype.aircraftCount = function () {
+        if (this.aircraftQueue.length === 0){
+                return 0
+        }
 
 }
 
 ATCQueue.prototype.enqueue = function (aircraft) {
+    // add index order value as key value pair
+
+    // SHIFT (takes off the first) AND PUSH ( adds to the end)
+
+        if(aircraft.type === passenger && aircraft.size === large){
+                largePassengerQueue.push() 
+        } else if(aircraft.type === passenger && aircraft.size === small){
+                smallPassengerQueue.push()
+        } else if(aircraft.type === cargo && aircraft.size === large){
+                largeCargoQueue.push()
+        } else if(aircraft.type === cargo && aircraft.size === small){
+                smallCargoQueue.push()
+        }
+        // sorts the list by priority
+
 
 }
 
 ATCQueue.prototype.dequeue = function () {
-    
+
+        if(largePassengerQueue !== []){
+        return largePassengerQueue.shift()
+        } else if(smallPassengerQueue !== []){
+        return smallPassengerQueue.shift()
+        } else if(largeCargoQueue !== []){
+        return largeCargoQueue.shift()
+        } else if(smallCargoQueue !== []){
+        return smallCargoQueue.shift()
+        } else { return }
+
 }
+
+        // higher to lowest priority
+        // passenger large 
+        // passenger small 
+        // cargo large 
+        // cargo small 
+        // if passenger large == passenger small then passenger large goes first 
+        // if cargo large == cargo small then cargo large goes first 
+
 
 // DO NOT MODIFY
 module.exports = ATCQueue
