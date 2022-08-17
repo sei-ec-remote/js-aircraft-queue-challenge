@@ -97,9 +97,9 @@ const higherPriority = (aircraft) => {
 
 ATCQueue.prototype.dequeue = function () {
  // Return Aircraft | Remove an aircraft from the queue and return it. |
-    const remove = aircraftQueue.find(higherPriority) => {
-        aircraftQueue.splice(aircraft(higherPriority))
-    }
+ const remove = aircraftQueue.find(higherPriority) => {
+    aircraftQueue.splice(aircraft(higherPriority))
+}
 //  if (aircraft === higherPriority) {
 
 //     }
