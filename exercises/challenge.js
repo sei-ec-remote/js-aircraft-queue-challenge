@@ -39,23 +39,76 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If two aircraft's have the same type but different sizes, then the large
         aircraft has a higher priority.
     -   If there is more than one aircraft with the same type and size, then the
-        aircraft that was enqueued earlier has higher priority.
-*/
+    aircraft that was enqueued earlier has higher priority.
+    */
+   
+class aircraft {
+    constructor(type, size) {
+        this.type = type;
+        this.size = size;
+    }
+}
+
+const flight1111 = new aircraft('passanger', 'large')
+const flight2222 = new aircraft('passanger', 'large')
+
+console.log('flight1111', flight1111)
+console.log('flight2222', flight2222)
+
 const ATCQueue = function () {
 	this.aircraftQueue = []
+    // console.log(this.aircraftQueue)
 }
 
+
+// ATCQueue.aircraft.push('flight1111')
+// console.log('array', ATCQueue.aircraftQueue)
+
+// const aircraftQueue = ATCQueue.aircraftQueue;
+// aircraftQueue()
+
+
+
+// Count the number of aircraft's in the queue.
 ATCQueue.prototype.aircraftCount = function () {
-
+    // find length of aircraftQueue 
+    return this.aircraftQueue.length
 }
 
-ATCQueue.prototype.enqueue = function (aircraft) {
-
+ATCQueue.prototype.enqueue= function (aircraft) {
+    this.aircraftQueue.push(aircraft)
+    // console.log(this)
+    // console.log(this._items)
+    // return this
 }
+console.log('test', ATCQueue.enqueue('flight'))
 
-ATCQueue.prototype.dequeue = function () {
-    
-}
+// |// `enqueue()` | Aircraft | None | Add an aircraft to the queue. |
+// ATCQueue.prototype.enqueue = function (aircraft) {
+//     this.aircraftQueue.push(aircraft)
+// }
+
+// ATCQueue.prototype.dequeue = function () {
+
+//     //// find by poriety
+const firstPriorety =  aircraft.type === 'passenger' && aircraft.size === 'large'
+const secondPriorety =  aircraft.type === 'passenger' && aircraft.size === 'small'
+const thirdPriorety =  aircraft.type === 'cargo' && aircraft.size === 'large'
+const fourthPriorety =  aircraft.type === 'cargo' && aircraft.size === 'small'
+//     // Passenger aircraft's have higher priority than cargo aircraft's.
+
+//     //  If two aircraft's have the same type but different sizes, then the large
+//     //  aircraft has a higher priority.
+
+//     // If size is aircraft.size == large && aircraft.type
+//     //  If there is more than one aircraft with the same type and size, then the
+//     //   aircraft that was enqueued earlier has higher priority.
+// }
+
+// | Property | Value |
+// | - | - |
+// | `type` | `passenger` or `cargo` |
+// | `size` | `small` or `large` |
 
 // DO NOT MODIFY
 module.exports = ATCQueue
