@@ -19,18 +19,18 @@ constructor function, `ATCQueue`, that creates and manages the aircraft queue.
 Aircraft's are represented by objects that have at least, but are not limited to,
 the following properties.
 
-| Property | Value |
-| - | - |
-| `type` | `passenger` or `cargo` |
-| `size` | `small` or `large` |
+| Property | Value                  |
+| -        | -                      |
+| `type`   | `passenger` or `cargo` |
+| `size`   | `small` or `large`     |
 
 The aircraft queue should implement the following interface.
 
-| Method | Parameters | Return | Notes |
-| - | - | - | - |
-| `aircraftCount()` | None | Integer | Count the number of aircraft's in the queue. |
-| `enqueue()` | Aircraft | None | Add an aircraft to the queue. |
-| `dequeue()` | None | Aircraft | Remove an aircraft from the queue and return it. |
+| Method           | Parameters | Return   | Notes                                            |
+| -                | -          | -        | -                                                |
+| `aircraftCount()`| None       | Integer  | Count the number of aircraft's in the queue.     |
+| `enqueue()`      | Aircraft   | None     | Add an aircraft to the queue.                    |
+| `dequeue()`      | None       | Aircraft | Remove an aircraft from the queue and return it. |
 
 The process that manages the aircraft queue satisfies the following conditions.
 -   There is no limit on the size of the aircraft queue.
@@ -41,21 +41,105 @@ The process that manages the aircraft queue satisfies the following conditions.
     -   If there is more than one aircraft with the same type and size, then the
         aircraft that was enqueued earlier has higher priority.
 */
-const ATCQueue = function () {
-	this.aircraftQueue = []
+
+class ATCQueue {
+
+
+    const largePassengerQueue = []
+    const smallPassengerQueue = []
+    const largeCargoQueue = []
+    const smallCargoQueue = []
+
+
+    const ATCQueue = function () {
+        this.aircraftQueue = []
+    }
+
+    ATCQueue.prototype.aircraftCount = function () {
+        return this.aircraftQueue.length()
+
+    }
+
+    ATCQueue.prototype.enqueue = function (aircraft) {
+        // add index order value as key value pair
+
+
+        // SHIFT (takes off the first) AND PUSH ( adds to the end)
+
+        if(aircraft.type === passenger && aircraft.size === large){
+            largePassengerQueue.push() 
+        } else if(aircraft.type === passenger && aircraft.size === small){
+            smallPassengerQueue.push()
+        } else if(aircraft.type === cargo && aircraft.size === large){
+            largeCargoQueue.push()
+        } else if(aircraft.type === cargo && aircraft.size === small){
+            smallCargoQueue.push()
+        }
+        // sorts the list by priority
+
+        this.largeCargoQueue.push(aircraft)
+
+    }
+
+    ATCQueue.prototype.dequeue = function () {
+
+        if(largePassengerQueue !== []){
+            return largePassengerQueue.shift()
+        } else if(smallPassengerQueue !== []){
+            return smallPassengerQueue.shift()
+        } else if(largeCargoQueue !== []){
+            return largeCargoQueue.shift()
+        } else if(smallCargoQueue !== []){
+            return smallCargoQueue.shift()
+        } else { return }
+
+    }
+
 }
 
-ATCQueue.prototype.aircraftCount = function () {
+//// *********************** NOTES ***********************************************************************
 
-}
+    // pops off the top one which should be the highest priority
 
-ATCQueue.prototype.enqueue = function (aircraft) {
 
-}
+    // get an aircraft from the list
+    // compare the aircraft to the next in list
+        // if the aircraft is passerger vs cargo - goto top
+        // if the aircraft is a cargo - goto bottom
+        // if the aircraft is small - then it goes to bottom
+        // if the aircraft is large - then it goes to top
+        // otherwise if equal in size and type, first in gets priority
 
-ATCQueue.prototype.dequeue = function () {
-    
-}
+        // aicraft: {
+
+        //     { type: large,
+        //       size: large
+        //     }
+        // }
+
+        // type : cargo or passenger
+        // size : small or large
+        // order_in : an index of the order added
+
+
+        // theOne = ''
+        // theList = [sp,lc,lp,sp,lc,sp,sp,lp]
+
+        // if(theList.pop.type  )
+
+
+        // lp 3   >  type : passenger, size : large , order_in : 3
+        // sp 1   >  type : passenger, size : small , order_in : 1
+        // sp 4
+        // lc 2
+
+        // sp 4
+        // lp 3
+        // lc 2
+        // sp 1
+        // lp
+
+
 
 // DO NOT MODIFY
 module.exports = ATCQueue
